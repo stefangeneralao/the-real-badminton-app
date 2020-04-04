@@ -15,8 +15,8 @@
     "uuid": "^7.0.3"
   },
   "scripts": {
-    "start": "parcel --port 3000 public/index.html",
-    "build": "parcel build public/index.html"
+    "start": "parcel public/index.html",
+    "build": "parcel build public/index.html --public-url /badminton"
   },
   "eslintConfig": {
     "extends": "react-app"
