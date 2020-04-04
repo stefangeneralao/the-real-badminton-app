@@ -6,7 +6,7 @@ const StyledItem = styled.div`
   grid-template-columns: auto 50px;
 `;
 
-const Item = ({ value, isChecked, voterIds, toggleChecked }) => (
+const Item = ({ value, isChecked, voters, toggleChecked }) => (
   <StyledItem onClick={ toggleChecked }>
     <p>{ value }</p>
     <input type="checkbox" checked={ isChecked } readOnly />
