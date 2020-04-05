@@ -7,21 +7,21 @@ import ItemsWrapper from '#root/components/ItemsWrapper/ItemsWrapper';
 import AddNewItem from '#root/components/AddNewItem/AddNewItem';
 import Header from '#root/components/Header/Header';
 
-const StyledApp = styled.div`
-position: relative;
-margin: 0 auto;
-background: white;
-border-radius: 3px;
+const Main = styled.main`
+  padding: 40px 20px;
+  max-width: 425px;
+  margin: auto;
 `;
 
 const App = () => {
   return (
-    <StyledApp className="App">
+    <div className="App">
       <Header />
-      
-      <ItemsWrapper />
-      <AddNewItem />
-    </StyledApp>
+      <Main>
+        <ItemsWrapper />
+        <AddNewItem />
+      </Main>
+    </div>
   );
 };
 

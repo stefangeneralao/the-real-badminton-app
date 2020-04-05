@@ -2,7 +2,26 @@ import React, { useState } from 'react';
 import { consumeItems } from '#root/contexts/items';
 import styled from 'styled-components';
 
-const StyledAddNewItem = styled.div``;
+const StyledAddNewItem = styled.input`
+  border: none;
+  box-shadow: 0 2px 6px #33333333;
+  width: 100%;
+  padding: 10px 30px;
+  box-sizing: border-box;
+  line-height: 50px;
+  font-size: 0.9rem;
+  border-radius: 25px;
+  text-align: center;
+  color: #666;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 12px #33333333;
+  }
+`;
 
 const AddNewItem = ({ addItem }) => {
   const [ textfieldValue, setTextfieldValue ] = useState('');
@@ -24,15 +43,13 @@ const AddNewItem = ({ addItem }) => {
   };
   
   return (
-    <StyledAddNewItem>
-      <input
-        type="text"
-        onKeyDown={ onKeyDownHandler }
-        onChange={ onChangeHandler }
-        value={ textfieldValue }
-        placeholder="Add New"
-      />
-    </StyledAddNewItem>
+    <StyledAddNewItem
+      type="datetime"
+      onKeyDown={ onKeyDownHandler }
+      onChange={ onChangeHandler }
+      value={ textfieldValue }
+      placeholder="Add New"
+    />
   );
 };
 

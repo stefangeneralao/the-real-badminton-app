@@ -5,11 +5,7 @@ import { consumeItems } from '#root/contexts/items';
 import Item from '#root/components/Item/Item';
 import styled from 'styled-components';
 
-const StyledItemsWrapper = styled.div`
-  padding: 40px 20px;
-  max-width: 425px;
-  margin: auto;
-`;
+const StyledItemsWrapper = styled.div``;
 
 const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
   if (!items.length) {
