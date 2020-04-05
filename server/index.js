@@ -11,13 +11,17 @@ const generateItem = value => ({
 
 const storage = {
   items: [{
-    id: 'aaa',
+    id: uuid(),
     value: '12 april 20:00',
     voters: [],
   }, {
-    id: 'bbb',
+    id: uuid(),
     value: '12 april 21:00',
-    voters: [],
+    voters: [ uuid(), uuid(), uuid() ],
+  }, {
+    id: uuid(),
+    value: '12 april 19:00',
+    voters: [ uuid(), uuid() ]
   }],
 };
 
@@ -39,7 +43,7 @@ app.get('/', (_, res) => {
 });
 
 app.get('/items', (_, res) => {
-  res.status(200).send(storage.items);
+  res.status(200).send(storage.items.sort((a, b) => ( b.voters.length - a.voters.length )));
 });
 
 app.post('/vote', (req, res) => {

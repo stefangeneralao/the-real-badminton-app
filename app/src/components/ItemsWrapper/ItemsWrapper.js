@@ -13,7 +13,7 @@ const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
   
   return (
     <div>
-      { items.map(({ id, value, isChecked, voters }) => (
+      { items.map(({ id, value, voters }) => (
         <Item
           key={ id }
           value={ value }
