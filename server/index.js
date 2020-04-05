@@ -13,15 +13,23 @@ const storage = {
   items: [{
     id: uuid(),
     value: '12 april 20:00',
-    voters: [],
+    voters: [ uuid(), uuid(), uuid(), uuid() ],
   }, {
     id: uuid(),
     value: '12 april 21:00',
-    voters: [ uuid(), uuid(), uuid() ],
+    voters: [],
   }, {
     id: uuid(),
     value: '12 april 19:00',
     voters: [ uuid(), uuid() ]
+  }, {
+    id: uuid(),
+    value: '13 april 19:00',
+    voters: [ uuid(), uuid() ]
+  }, {
+    id: uuid(),
+    value: '13 april 20:00',
+    voters: [ uuid() ]
   }],
 };
 
