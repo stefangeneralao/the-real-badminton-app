@@ -5,13 +5,11 @@ import logo from '../../../public/badminton.png'
 
 const StyledHeader = styled.div`
   background-color: black;
-  height: 250px;
   display: flex;
   border-bottom: 10px solid ${ ({ theme }) => theme.secondary };
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  font-size: calc(10px + 2vmin);
 `;
 
 const Img = styled.img`
@@ -27,9 +25,10 @@ const Img = styled.img`
 
 const H1 = styled.h1`
   color: ${ ({ theme }) => theme.primary };
-  font-size: 60px;
+  font-size: 7vw;
   margin: 0;
   font-family: 'Press Start 2P', cursive;
+  padding-top: 140px;
 `;
 
 const Header = () => (

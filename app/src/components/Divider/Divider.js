@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 const Divider = styled.div`
-  position: relative;
-  left: -20%;
-  width: 140%;
+  width: 100%;
   height: 1px;
   background: linear-gradient(0.25turn, white, black, white);
   margin: 20px 0;
