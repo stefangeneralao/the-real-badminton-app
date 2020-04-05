@@ -59,7 +59,7 @@ app.delete('/vote', (req, res) => {
   const { voters } = storage.items.find(({ id }) => id === itemId);
   if (voters.includes(userToken)) {
     const voterIndex = voters.findIndex(voter => voter === userToken);
-    if (voterIndex) {
+    if (voterIndex !== -1) {
       voters.splice(voterIndex, 1);
     }
   }
