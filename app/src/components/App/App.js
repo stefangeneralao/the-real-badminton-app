@@ -7,9 +7,10 @@ import AddNewItem from '#root/components/AddNewItem/AddNewItem';
 import Header from '#root/components/Header/Header';
 import Divider from '#root/components/Divider/Divider';
 import Main from '#root/components/Main/Main'
+import ThemeProvider from '#root/components/ThemeProvider/ThemeProvider';
 
-const App = () => {
-  return (
+const App = () => (
+  <ThemeProvider>
     <div className="App">
       <Header />
       <Main>
@@ -18,8 +19,8 @@ const App = () => {
         <AddNewItem />
       </Main>
     </div>
-  );
-};
+  </ThemeProvider>
+);
 
 export default compose(
   provideUserToken,

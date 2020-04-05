@@ -10,7 +10,7 @@ const StyledAddNewItem = styled.input`
   box-sizing: border-box;
   line-height: 50px;
   font-size: 0.9rem;
-  border-radius: 25px;
+  border-radius: 5px;
   text-align: center;
   color: #666;
 

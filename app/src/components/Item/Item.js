@@ -4,11 +4,11 @@ import styled from 'styled-components';
 const StyledItem = styled.div`
   display: grid;
   grid-template-columns: auto 70px;
-  color: ${ props => props.isChecked ? '#fb5a2d': '#33333333' };
+  color: ${ ({ isChecked, theme }) => isChecked ? theme.primary: '#33333333' };
   box-shadow: ${ props => props.isChecked ? '0 2px 6px' : '0 2px 6px' };
   margin: 10px 0;
   padding: 10px 30px;
-  border-radius: 25px;
+  border-radius: 5px;
   transition: 700ms;
 
   &:hover {

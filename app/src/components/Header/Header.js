@@ -7,7 +7,7 @@ const StyledHeader = styled.div`
   background-color: black;
   height: 250px;
   display: flex;
-  border-bottom: 10px solid #FBC02D;
+  border-bottom: 10px solid ${ ({ theme }) => theme.secondary };
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
@@ -26,7 +26,7 @@ const Img = styled.img`
 `;
 
 const H1 = styled.h1`
-  color: #FBC02D;
+  color: ${ ({ theme }) => theme.primary };
   font-size: 60px;
   margin: 0;
   font-family: 'Press Start 2P', cursive;
