@@ -3,17 +3,24 @@ import { compose } from 'recompose';
 import { consumeUserToken } from '#root/contexts/userToken';
 import { consumeItems } from '#root/contexts/items';
 import Item from '#root/components/Item/Item';
+import styled from 'styled-components';
+
+const StyledItemsWrapper = styled.div`
+  padding: 40px 20px;
+  max-width: 425px;
+  margin: auto;
+`;
 
 const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
   if (!items.length) {
     return (
-      <div>No items</div>
+      <StyledItemsWrapper>No items</StyledItemsWrapper>
     );
   }
   
   return (
-    <div>
-      { items.map(({ id, value, isChecked, voters }) => (
+    <StyledItemsWrapper>
+      { items.map(({ id, value, voters }) => (
         <Item
           key={ id }
           value={ value }
@@ -22,7 +29,7 @@ const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
           voters={ voters }
         />
       )) }
-    </div>
+    </StyledItemsWrapper>
   );
 }
 
