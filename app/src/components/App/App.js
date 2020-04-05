@@ -8,14 +8,17 @@ import AddNewItem from '#root/components/AddNewItem/AddNewItem';
 import Header from '#root/components/Header/Header';
 
 const StyledApp = styled.div`
-  max-width: 425px;
-  margin: auto;
+position: relative;
+margin: 0 auto;
+background: white;
+border-radius: 3px;
 `;
 
 const App = () => {
   return (
     <StyledApp className="App">
       <Header />
+      
       <ItemsWrapper />
       <AddNewItem />
     </StyledApp>
