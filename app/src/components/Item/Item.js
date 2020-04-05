@@ -6,8 +6,8 @@ const StyledItem = styled.div`
   grid-template-columns: auto 50px;
   box-shadow: ${ props => props.isChecked ? '0 1px 4px #FDD835' : '0 1px 4px #33333333' };
   margin: 10px 0;
-  padding: 15px 30px;
-  border-radius: 30px;
+  padding: 10px 30px;
+  border-radius: 5px;
   transition: 300ms;
 
   &:hover {
