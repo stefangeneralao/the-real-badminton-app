@@ -1,7 +1,8 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import contextHOC from '#root/utils/contextHOC';
 import { v4 as uuid } from 'uuid';
 import { consumeUserToken } from '#root/contexts/userToken';
+import { getItems, postVote, deleteVote, postItem } from '#root/utils/api';
 
 const ItemsContext = createContext();
 
@@ -12,23 +13,22 @@ const ItemsProvider = ({ children, userToken }) => {
     const newItem = {
       id: uuid(),
       value,
-      isChecked: false,
-      voterIds: [],
+      voters: [],
     };
 
+    postItem(value);
     setItems([ ...items, newItem ]);
   };
 
   const checkItem = itemId => {
     const newItems = items.map(item => {
-      const { id, voterIds } = item;
+      const { id, voters } = item;
       if (id === itemId) {
-        const newVoterIds = [ ...voterIds, userToken ];
+        const newVoters = [ ...voters, userToken ];
         
         return {
           ...item,
-          isChecked: true,
-          voterIds: newVoterIds,
+          voters: newVoters,
         };
       } else {
         return item;
@@ -40,14 +40,13 @@ const ItemsProvider = ({ children, userToken }) => {
 
   const uncheckItem = itemId => {
     const newItems = items.map(item => {
-      const { id, voterIds } = item;
+      const { id, voters } = item;
       if (id === itemId) {
-        const newVoterIds = voterIds.filter(id => id !== userToken);
+        const newVoters = voters.filter(id => id !== userToken);
         
         return {
           ...item,
-          isChecked: false,
-          voterIds: newVoterIds,
+          voters: newVoters,
         };
       } else {
         return item;
@@ -58,13 +57,22 @@ const ItemsProvider = ({ children, userToken }) => {
   };
   
   const toggleChecked = itemId => {
+    
     const item = items.find(({ id }) => id === itemId);
-    if (item.isChecked) {
+    if (item.voters.includes(userToken)) {
+      deleteVote(itemId, userToken);
       uncheckItem(itemId);
     } else {
+      postVote(itemId, userToken);
       checkItem(itemId);
     }
   };
+
+  useEffect(() => {
+    ( async() => {
+      setItems(await getItems());
+    })();
+  }, []);
   
   return (
     <ItemsContext.Provider value={ {

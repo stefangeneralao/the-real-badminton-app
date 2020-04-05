@@ -1,8 +1,10 @@
 import React from 'react';
+import { compose } from 'recompose';
+import { consumeUserToken } from '#root/contexts/userToken';
 import { consumeItems } from '#root/contexts/items';
 import Item from '#root/components/Item/Item';
 
-const ItemsWrapper = ({ items, toggleChecked }) => {
+const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
   if (!items.length) {
     return (
       <div>No items</div>
@@ -11,17 +13,20 @@ const ItemsWrapper = ({ items, toggleChecked }) => {
   
   return (
     <div>
-      { items.map(({ id, value, isChecked, voterIds }) => (
+      { items.map(({ id, value, isChecked, voters }) => (
         <Item
           key={ id }
           value={ value }
-          isChecked={ isChecked }
+          isChecked={ voters.includes(userToken) }
           toggleChecked={ () => toggleChecked(id) }
-          voterIds={ voterIds }
+          voters={ voters }
         />
       )) }
     </div>
   );
 }
 
-export default consumeItems(ItemsWrapper);
+export default compose(
+  consumeItems,
+  consumeUserToken,
+)(ItemsWrapper);
