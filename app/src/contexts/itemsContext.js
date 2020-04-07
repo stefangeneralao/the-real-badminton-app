@@ -1,29 +1,33 @@
 import React, { createContext, useState, useEffect } from 'react';
 import contextHOC from '#root/utils/contextHOC';
 import { v4 as uuid } from 'uuid';
-import { consumeUserToken } from '#root/contexts/userToken';
+import { consumeUserToken } from '#root/contexts/userTokenContext';
 import { getItems, postVote, deleteVote, postItem } from '#root/utils/api';
 
 const ItemsContext = createContext();
 
 const ItemsProvider = ({ children, userToken }) => {
   const [ items, setItems ] = useState([]);
+  const [ isFetching, setIsFetching ] = useState(false);
+  const [ isFetchingFailed, setIsFetchingFailed ] = useState(false);
 
   const addItem = value => {
+    const _id = uuid();
     const newItem = {
-      id: uuid(),
+      _id,
       value,
       voters: [],
+      userToken,
     };
 
-    postItem(value);
+    postItem(value, _id, userToken);
     setItems([ ...items, newItem ]);
   };
 
   const checkItem = itemId => {
     const newItems = items.map(item => {
-      const { id, voters } = item;
-      if (id === itemId) {
+      const { _id, voters } = item;
+      if (_id === itemId) {
         const newVoters = [ ...voters, userToken ];
         
         return {
@@ -34,14 +38,13 @@ const ItemsProvider = ({ children, userToken }) => {
         return item;
       }
     });
-
     setItems(newItems);
   };
 
   const uncheckItem = itemId => {
     const newItems = items.map(item => {
-      const { id, voters } = item;
-      if (id === itemId) {
+      const { _id, voters } = item;
+      if (_id === itemId) {
         const newVoters = voters.filter(id => id !== userToken);
         
         return {
@@ -52,13 +55,11 @@ const ItemsProvider = ({ children, userToken }) => {
         return item;
       }
     });
-
     setItems(newItems);
   };
   
   const toggleChecked = itemId => {
-    
-    const item = items.find(({ id }) => id === itemId);
+    const item = items.find(({ _id }) => _id === itemId);
     if (item.voters.includes(userToken)) {
       deleteVote(itemId, userToken);
       uncheckItem(itemId);
@@ -70,7 +71,15 @@ const ItemsProvider = ({ children, userToken }) => {
 
   useEffect(() => {
     ( async() => {
-      setItems(await getItems());
+      try {
+        setIsFetching(true);
+        setIsFetchingFailed(false);
+        setItems(await getItems());
+      } catch {
+        setIsFetchingFailed(true);
+      } finally {
+        setIsFetching(false);
+      }
     })();
   }, []);
   
@@ -79,6 +88,8 @@ const ItemsProvider = ({ children, userToken }) => {
       items,
       addItem,
       toggleChecked,
+      isFetching,
+      isFetchingFailed,
     } } >
       { children }
     </ItemsContext.Provider>

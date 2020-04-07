@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { consumeItems } from '#root/contexts/items';
+import { consumeItems } from '#root/contexts/itemsContext';
 import styled from 'styled-components';
 
 const StyledAddNewItem = styled.input`

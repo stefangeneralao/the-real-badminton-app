@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { provideItems } from '#root/contexts/items';
-import { provideUserToken } from '#root/contexts/userToken';
+import { provideItems } from '#root/contexts/itemsContext';
+import { provideUserToken } from '#root/contexts/userTokenContext';
 import ItemsWrapper from '#root/components/ItemsWrapper/ItemsWrapper';
 import AddNewItem from '#root/components/AddNewItem/AddNewItem';
 import Header from '#root/components/Header/Header';

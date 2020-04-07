@@ -1,13 +1,33 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { consumeUserToken } from '#root/contexts/userToken';
-import { consumeItems } from '#root/contexts/items';
+import { consumeUserToken } from '#root/contexts/userTokenContext';
+import { consumeItems } from '#root/contexts/itemsContext';
 import Item from '#root/components/Item/Item';
 import styled from 'styled-components';
 
 const StyledItemsWrapper = styled.div``;
 
-const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
+const P = styled.p`
+  text-align: center;
+`;
+
+const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, userToken }) => {
+  if (isFetching) {
+    return (
+      <StyledItemsWrapper>
+        <P>Soon...</P>
+      </StyledItemsWrapper>
+    );
+  }
+
+  if (isFetchingFailed) {
+    return (
+      <StyledItemsWrapper>
+        <P>Oh no. Some ting wong.</P>
+      </StyledItemsWrapper>
+    );
+  }
+  
   if (!items.length) {
     return (
       <StyledItemsWrapper>No items</StyledItemsWrapper>
@@ -16,12 +36,12 @@ const ItemsWrapper = ({ items, toggleChecked, userToken }) => {
   
   return (
     <StyledItemsWrapper>
-      { items.map(({ id, value, voters }) => (
+      { items.map(({ _id, value, voters }) => (
         <Item
-          key={ id }
+          key={ _id }
           value={ value }
           isChecked={ voters.includes(userToken) }
-          toggleChecked={ () => toggleChecked(id) }
+          toggleChecked={ () => toggleChecked(_id) }
           voters={ voters }
         />
       )) }

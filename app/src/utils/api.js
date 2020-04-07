@@ -21,9 +21,9 @@ export const deleteVote = async (itemId, userToken) => {
   });
 };
 
-export const postItem = async value => {
+export const postItem = async (value, _id, userToken) => {
   await axios(`${ apiUrl }/item`, {
     method: 'POST',
-    data: { value },
+    data: { value, _id, userToken },
   });
 };
