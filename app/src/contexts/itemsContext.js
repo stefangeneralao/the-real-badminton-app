@@ -74,7 +74,7 @@ const ItemsProvider = ({ children, userToken }) => {
       try {
         setIsFetching(true);
         setIsFetchingFailed(false);
-        setItems(await getItems());
+        setItems(await getItems(userToken));
       } catch {
         setIsFetchingFailed(true);
       } finally {

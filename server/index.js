@@ -20,7 +20,9 @@ app.get('/', (_, res) => {
   res.sendStatus(200);
 });
 
-app.get('/items', async (_, res) => {
+app.get('/items', async (req, res) => {
+  const { userToken } = req.query;
+  
   try {
     const client = await MongoClient.connect(dbUrl, {
       useUnifiedTopology: true,
@@ -28,8 +30,17 @@ app.get('/items', async (_, res) => {
     });
     const collection = client.db().collection('items');
     const items = await collection.find({}).toArray();
+    const sortedItems = items.sort((a, b) => {
+      const { voters: votersA, voters: { length: lengthA } } = a;
+      const { voters: votersB, voters: { length: lengthB } } = b;
+      if (lengthA !== lengthB) return lengthB - lengthA;
+      if (!userToken) return 0;
+      if (votersA.includes(userToken)) return -1;
+      if (votersB.includes(userToken)) return 1;
+      return 0;
+    });
+    res.status(200).send(sortedItems);
     client.close();
-    res.status(200).send(items.sort((a, b) => ( b.voters.length - a.voters.length )));
   } catch {
     res.sendStatus(500);
   }
