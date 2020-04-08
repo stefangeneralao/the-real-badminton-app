@@ -5,14 +5,15 @@ const StyledItem = styled.div`
   display: grid;
   grid-template-columns: auto 70px;
   color: ${ ({ isChecked, theme }) => isChecked ? theme.primary: '#33333333' };
-  box-shadow: ${ props => props.isChecked ? '0 3px 9px' : '0 1px 3px' };
+  box-shadow: ${ props => props.isChecked ? '4px 4px' : '2px 2px' };
   margin: 10px 0;
-  padding: 10px 30px;
-  border-radius: 5px;
-  transition: 300ms;
+  padding: 3px 30px;
+  border: solid 2px #aaa;
+  transition: 700ms;
+  font-weight: bold;
 
   &:hover {
-    box-shadow: ${ props => props.isChecked ? '0 5px 15px' : '0 4px 12px' };
+    box-shadow: 6px 6px;
     transition: 100ms;
   }
 `;

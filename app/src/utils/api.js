@@ -2,8 +2,10 @@ import axios from 'axios';
 
 const apiUrl = process.env.API_URL || 'http://localhost:3001';
 
-export const getItems = async () => {
-  const { data } = await axios.get(`${ apiUrl }/items`);
+export const getItems = async userToken => {
+  const { data } = await axios.get(`${ apiUrl }/items`, {
+    params: { userToken },
+  });
   return data;
 };
 
