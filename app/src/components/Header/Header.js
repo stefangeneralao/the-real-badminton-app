@@ -10,7 +10,7 @@ const StyledHeader = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  text-shadow: 3px -3px white;
+  text-shadow: 3px 3px white;
   color: ${ ({ theme }) => theme.primary };
 
   &:hover {
@@ -23,14 +23,14 @@ const StyledHeader = styled.div`
   @keyframes color-rotate {
     0% {
       color: ${ ({ theme }) => theme.primary };
-      text-shadow: 3px -3px white;
+      text-shadow: 3px 3px white;
     }
     50% {
       color: #2d67fb;
     }
     100% {
       color: ${ ({ theme }) => theme.secondary };
-      text-shadow: -3px -3px white;
+      text-shadow: -3px 3px white;
     }
   }
 `;
@@ -42,6 +42,7 @@ const Img = styled.img`
   width: auto;
   height: 250px;
   animation:spin 4s linear infinite;
+  filter: blur(0);
   
   @keyframes spin { 100% { transform: rotate(360deg); } }
 `;
