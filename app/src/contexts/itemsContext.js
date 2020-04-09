@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import contextHOC from '#root/utils/contextHOC';
 import { v4 as uuid } from 'uuid';
-import { consumeUserToken } from '#root/contexts/userTokenContext';
+import { consumeUser } from '#root/contexts/userContext';
 import { getItems, postVote, deleteVote, postItem } from '#root/utils/api';
 
 const ItemsContext = createContext();
@@ -101,4 +101,4 @@ const ItemsConsumer = ItemsContext.Consumer;
 export const [
   provideItems,
   consumeItems,
-] = contextHOC(consumeUserToken(ItemsProvider), ItemsConsumer);
+] = contextHOC(consumeUser(ItemsProvider), ItemsConsumer);

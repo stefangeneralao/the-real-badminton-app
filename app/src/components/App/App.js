@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { provideItems } from '#root/contexts/itemsContext';
-import { provideUserToken } from '#root/contexts/userTokenContext';
+import { provideUser } from '#root/contexts/userContext';
 import Header from '#root/components/Header/Header';
 import Main from '#root/components/Main/Main'
 import ThemeProvider from '#root/components/ThemeProvider/ThemeProvider';
@@ -16,6 +16,6 @@ const App = () => (
 );
 
 export default compose(
-  provideUserToken,
+  provideUser,
   provideItems,
 )(App);

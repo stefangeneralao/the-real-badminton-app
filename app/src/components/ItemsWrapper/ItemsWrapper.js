@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { consumeUserToken } from '#root/contexts/userTokenContext';
+import { consumeUser } from '#root/contexts/userContext';
 import { consumeItems } from '#root/contexts/itemsContext';
 import Item from '#root/components/Item/Item';
 import styled from 'styled-components';
@@ -51,5 +51,5 @@ const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, user
 
 export default compose(
   consumeItems,
-  consumeUserToken,
+  consumeUser,
 )(ItemsWrapper);

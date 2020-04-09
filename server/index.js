@@ -110,6 +110,28 @@ app.delete('/vote', async (req, res) => {
   }
 });
 
+app.post('/username', async (req, res) => {
+  const { userName, userToken } = req.body;
+
+  try {
+    const client = await MongoClient.connect(dbUrl, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    const user = { userName, _id: userToken };
+    const collection = client.db().collection('users');
+    await collection.findOneAndUpdate(
+      { _id: user._id },
+      { $set: user },
+      { upsert: true },
+    );
+    res.sendStatus(200);
+  } catch (e){
+    console.log(e);
+    res.sendStatus(400);
+  }
+});
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {

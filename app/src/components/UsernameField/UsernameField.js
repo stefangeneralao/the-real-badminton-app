@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { consumeUser } from '#root/contexts/userContext';
 
 const Input = styled.input`
   border: none;
@@ -31,13 +32,14 @@ const Input = styled.input`
   }
 `;
 
-const UsernameField = () => {
+const UserNameField = ({ setUserName }) => {
   const [ isSubmitted, setIsSubmitted ] = useState(false);
   const [ textfieldValue, setTextfieldValue ] = useState('');
 
   const onSubmitHandler = () => {
     if (textfieldValue) {
       setIsSubmitted(true);
+      setUserName(textfieldValue);
     }
   };
 
@@ -49,20 +51,29 @@ const UsernameField = () => {
 
   const onKeyDownHandler = e => {
     if (e.key === 'Enter' && textfieldValue) {
-      setIsSubmitted(true);
+      onSubmitHandler();
     }
   };
 
   const onChangeHandler = e => {
     const { value } = e.currentTarget;
-    setIsSubmitted(false);
     setTextfieldValue(value);
+
+    if (textfieldValue) {
+      setIsSubmitted(false);
+    }
+  };
+
+  const onBlurHandler = () => {
+    if (textfieldValue) {
+      onSubmitHandler();
+    }
   };
 
   return (
     <Input
       placeholder="Your name here please"
-      onBlur={ onSubmitHandler }
+      onBlur={ onBlurHandler }
       isSubmitted={ isSubmitted }
       onFocus={ onFocusHandler }
       onKeyDown={ onKeyDownHandler }
@@ -72,5 +83,4 @@ const UsernameField = () => {
   );
 };
 
-export default UsernameField;
-
+export default consumeUser(UserNameField);
