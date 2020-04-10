@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { compose } from 'recompose';
 import { consumeUser } from '#root/contexts/userContext';
+import { consumeItems } from '../../contexts/itemsContext';
 
 const Input = styled.input`
   border: none;
@@ -32,55 +34,54 @@ const Input = styled.input`
   }
 `;
 
-const UserNameField = ({ setUserName }) => {
+const UserNameField = ({ setUserName, userName, refreshItems }) => {
   const [ isSubmitted, setIsSubmitted ] = useState(false);
-  const [ textfieldValue, setTextfieldValue ] = useState('');
-
-  const onSubmitHandler = () => {
-    if (textfieldValue) {
+  const inputEl = useRef();
+  
+  const onSubmitHandler = e => {
+    if (e) e.preventDefault();
+    const { value } = inputEl.current;
+    if (value) {
       setIsSubmitted(true);
-      setUserName(textfieldValue);
+      refreshItems();
+      setUserName(value);
     }
   };
 
   const onFocusHandler = () => {
-    if (textfieldValue) {
-      setIsSubmitted(false);
-    }
+    setIsSubmitted(false);
   };
 
   const onKeyDownHandler = e => {
-    if (e.key === 'Enter' && textfieldValue) {
+    if (e.key === 'Enter') {
       onSubmitHandler();
     }
   };
 
   const onChangeHandler = e => {
-    const { value } = e.currentTarget;
-    setTextfieldValue(value);
+    const { value } = inputEl.current;
 
-    if (textfieldValue) {
+    if (value) {
       setIsSubmitted(false);
     }
   };
 
-  const onBlurHandler = () => {
-    if (textfieldValue) {
-      onSubmitHandler();
-    }
-  };
-
   return (
-    <Input
-      placeholder="Your name here please"
-      onBlur={ onBlurHandler }
-      isSubmitted={ isSubmitted }
-      onFocus={ onFocusHandler }
-      onKeyDown={ onKeyDownHandler }
-      value={ textfieldValue }
-      onChange={ onChangeHandler }
-    />
+    <form onSubmit={ onSubmitHandler }>
+      <Input
+        ref={ inputEl }
+        placeholder="Your name here please"
+        isSubmitted={ isSubmitted }
+        onFocus={ onFocusHandler }
+        onKeyDown={ onKeyDownHandler }
+        onChange={ onChangeHandler }
+        defaultValue={ userName }
+      />
+    </form>
   );
 };
 
-export default consumeUser(UserNameField);
+export default compose(
+  consumeUser,
+  consumeItems,
+)(UserNameField);

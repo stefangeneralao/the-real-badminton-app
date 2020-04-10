@@ -37,3 +37,11 @@ export const postUserName = async (userName, userToken) => {
     data: { userName, userToken },
   });
 };
+
+export const getUserName = async userToken => {
+  const { data } = await axios(`${ apiUrl }/username`, {
+    method: 'GET',
+    params: { userToken }
+  });
+  return data;
+}

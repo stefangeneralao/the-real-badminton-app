@@ -1,7 +1,7 @@
 import React, { createContext, useRef, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import contextHOC from '#root/utils/contextHOC';
-import { postUserName } from '#root/utils/api';
+import { postUserName, getUserName } from '#root/utils/api';
 
 const UserContext = createContext();
 
@@ -10,6 +10,9 @@ const UserProvider = ({ children }) => {
   const [ userName, setUserName ] = useState('');
   
   useEffect(() => {
+    ( async () => {
+      setUserName(await getUserName(userToken.current));
+    })();
     localStorage.setItem('userToken', userToken.current);
   }, []);
 

@@ -150,6 +150,21 @@ app.post('/username', async (req, res) => {
   }
 });
 
+app.get('/username', async (req, res) => {
+  const { userToken } = req.query;
+  try {
+    const client = await MongoClient.connect(dbUrl, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+    const user = await client.db().collection('users').findOne({ _id: userToken });
+    client.close();
+    res.status(200).send(user.userName);
+  } catch {
+    res.sendStatus(500);
+  }
+});
+
 const port = process.env.PORT || 3001;
 
 app.listen(port, () => {

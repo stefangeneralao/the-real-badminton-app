@@ -72,6 +72,10 @@ const ItemsProvider = ({ children, userToken, userName }) => {
     }
   };
 
+  const refreshItems = async () => {
+    setItems(await getItems(userToken));
+  };
+
   useEffect(() => {
     ( async() => {
       try {
@@ -93,6 +97,7 @@ const ItemsProvider = ({ children, userToken, userName }) => {
       toggleChecked,
       isFetching,
       isFetchingFailed,
+      refreshItems,
     } } >
       { children }
     </ItemsContext.Provider>
