@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import { consumeUserToken } from '#root/contexts/userTokenContext';
+import { consumeUser } from '#root/contexts/userContext';
 import { consumeItems } from '#root/contexts/itemsContext';
 import Item from '#root/components/Item/Item';
 import styled from 'styled-components';
@@ -39,8 +39,9 @@ const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, user
       { items.map(({ _id, value, voters }) => (
         <Item
           key={ _id }
+          id={ _id }
           value={ value }
-          isChecked={ voters.includes(userToken) }
+          isChecked={ voters.filter(({ userId }) => userId === userToken).length > 0 }
           toggleChecked={ () => toggleChecked(_id) }
           voters={ voters }
         />
@@ -51,5 +52,5 @@ const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, user
 
 export default compose(
   consumeItems,
-  consumeUserToken,
+  consumeUser,
 )(ItemsWrapper);
