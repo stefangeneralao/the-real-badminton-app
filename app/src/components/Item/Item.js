@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
 
 const StyledItem = styled.div`
   display: grid;
@@ -22,19 +23,26 @@ const Voters = styled.div`
 `;
 
 const P = styled.p`
-  color: #666;
+  color: ${ ({ light }) => light ? 'white' : '#666' };
 `;
 
 const NumVoters = styled(P)`
   text-align: right;
 `;
 
-const Item = ({ value, isChecked, voters, toggleChecked }) => (
+const Item = ({ value, isChecked, voters, toggleChecked, id }) => (
   <StyledItem onClick={ toggleChecked } isChecked={ isChecked } >
     <P>{ value }</P>
-    <Voters>
+    <Voters data-tip data-for={ id }>
       <NumVoters>{ voters.length } votes</NumVoters>
     </Voters>
+    { voters.length > 0 ? (
+      <ReactTooltip id={ id }>
+      { voters.map(({ userName, userId }) => (
+        <P key={ userId } light>{ userName }</P>
+      )) }
+      </ReactTooltip>
+    ) : null }
   </StyledItem>
 );
 
