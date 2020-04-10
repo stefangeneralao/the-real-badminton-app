@@ -51,10 +51,14 @@ app.get('/items', async (req, res) => {
       .find({ _id: { $in: uniqueVoters } }).toArray();
     const itemVotersWithNames = sortedItems.map(item => ({
       ...item,
-      voters: [ ...item.voters.map(voter => ({
-        userId: voter,
-        userName: allVoters.find(({ _id }) => _id === voter).userName,
-      })) ],
+      voters: [ ...item.voters.map(voterId => {
+        const voter = allVoters.find(({ _id }) => _id === voterId);
+        const userName = voter ? voter.userName : 'Anonymous';
+        return {
+          userId: voterId,
+          userName,
+        }
+      }) ],
     }));
     res.status(200).send(itemVotersWithNames);
     client.close();
