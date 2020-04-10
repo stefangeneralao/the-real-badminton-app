@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
 
 if (!process.env.DB_URL) {
   console.log('DB_URL is missing from .env, fix it! Bye.');
@@ -159,13 +162,17 @@ app.get('/username', async (req, res) => {
     });
     const user = await client.db().collection('users').findOne({ _id: userToken });
     client.close();
-    res.status(200).send(user.userName);
-  } catch {
+    const { userName } = user || {};
+    res.status(200).send(userName);
+  } catch (e) {
+    console.log(e);
     res.sendStatus(500);
   }
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.API_PORT || 3001;
+
+process.env.API_PORT = port;
 
 app.listen(port, () => {
   console.log(`Listening on port ${ port }.`);
