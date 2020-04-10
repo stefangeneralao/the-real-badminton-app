@@ -6,7 +6,7 @@ import { getItems, postVote, deleteVote, postItem } from '#root/utils/api';
 
 const ItemsContext = createContext();
 
-const ItemsProvider = ({ children, userToken }) => {
+const ItemsProvider = ({ children, userToken, userName }) => {
   const [ items, setItems ] = useState([]);
   const [ isFetching, setIsFetching ] = useState(false);
   const [ isFetchingFailed, setIsFetchingFailed ] = useState(false);
@@ -28,7 +28,10 @@ const ItemsProvider = ({ children, userToken }) => {
     const newItems = items.map(item => {
       const { _id, voters } = item;
       if (_id === itemId) {
-        const newVoters = [ ...voters, userToken ];
+        const newVoters = [
+          ...voters,
+          { userId: userToken, userName },
+        ];
         
         return {
           ...item,
@@ -45,7 +48,7 @@ const ItemsProvider = ({ children, userToken }) => {
     const newItems = items.map(item => {
       const { _id, voters } = item;
       if (_id === itemId) {
-        const newVoters = voters.filter(id => id !== userToken);
+        const newVoters = voters.filter(({ userId }) => userId !== userToken);
         
         return {
           ...item,
@@ -60,7 +63,7 @@ const ItemsProvider = ({ children, userToken }) => {
   
   const toggleChecked = itemId => {
     const item = items.find(({ _id }) => _id === itemId);
-    if (item.voters.includes(userToken)) {
+    if (item.voters.filter(({ userId }) => userId === userToken).length > 0) {
       deleteVote(itemId, userToken);
       uncheckItem(itemId);
     } else {

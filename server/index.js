@@ -39,7 +39,21 @@ app.get('/items', async (req, res) => {
       if (votersB.includes(userToken)) return 1;
       return 0;
     });
-    res.status(200).send(sortedItems);
+    const uniqueVoters = (() => {
+      const allVoters = items.map(i => i.voters).flat();
+      const uniqueVotersSet = new Set(allVoters);
+      return Array.from(uniqueVotersSet);
+    })();
+    const allVoters = await client.db().collection('users')
+      .find({ _id: { $in: uniqueVoters } }).toArray();
+    const itemVotersWithNames = sortedItems.map(item => ({
+      ...item,
+      voters: [ ...item.voters.map(voter => ({
+        userId: voter,
+        userName: allVoters.find(({ _id }) => _id === voter).userName,
+      })) ],
+    }));
+    res.status(200).send(itemVotersWithNames);
     client.close();
   } catch {
     res.sendStatus(500);
@@ -99,20 +113,23 @@ app.delete('/vote', async (req, res) => {
     const collection = client.db().collection('items');
     const item = await collection.findOne({ _id: itemId });
     const voters = [ ...item.voters ].filter(voter => voter !== userToken);
+    const uniqueVoters = voters.reduce((unique, vote) => (
+      unique.includes(vote) ? unique : [ ...unique, vote ]
+    ), []);
     collection.updateOne(
       { _id: itemId },
-      { $set: { voters } },
+      { $set: { voters: uniqueVoters } },
     );
     client.close();
     res.sendStatus(204);
-  } catch {
+  } catch (e){
+    console.log(e);
     res.sendStatus(500);
   }
 });
 
 app.post('/username', async (req, res) => {
   const { userName, userToken } = req.body;
-
   try {
     const client = await MongoClient.connect(dbUrl, {
       useUnifiedTopology: true,
@@ -125,6 +142,7 @@ app.post('/username', async (req, res) => {
       { $set: user },
       { upsert: true },
     );
+    client.close();
     res.sendStatus(200);
   } catch (e){
     console.log(e);

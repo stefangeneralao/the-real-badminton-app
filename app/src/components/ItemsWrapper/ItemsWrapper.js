@@ -40,7 +40,7 @@ const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, user
         <Item
           key={ _id }
           value={ value }
-          isChecked={ voters.includes(userToken) }
+          isChecked={ voters.filter(({ userId }) => userId === userToken).length > 0 }
           toggleChecked={ () => toggleChecked(_id) }
           voters={ voters }
         />
