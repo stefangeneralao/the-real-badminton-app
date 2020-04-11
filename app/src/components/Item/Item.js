@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
 
 const StyledItem = styled.div`
   display: grid;
-  grid-template-columns: auto 70px;
+  grid-template-columns: auto auto;
+  grid-gap: 15px;
   color: ${ ({ isChecked, theme }) => isChecked ? theme.primary: '#33333333' };
   box-shadow: ${ props => props.isChecked ? '4px 4px' : '2px 2px' };
   margin: 10px 0;
@@ -20,29 +20,21 @@ const StyledItem = styled.div`
 `;
 
 const Voters = styled.div`
+  text-align: right;
 `;
 
 const P = styled.p`
   color: ${ ({ light }) => light ? 'white' : '#666' };
 `;
 
-const NumVoters = styled(P)`
-  text-align: right;
-`;
-
-const Item = ({ value, isChecked, voters, toggleChecked, id }) => (
+const Item = ({ value, isChecked, voters, toggleChecked }) => (
   <StyledItem onClick={ toggleChecked } isChecked={ isChecked } >
     <P>{ value }</P>
-    <Voters data-tip data-for={ id }>
-      <NumVoters>{ voters.length } votes</NumVoters>
-    </Voters>
-    { voters.length > 0 ? (
-      <ReactTooltip id={ id }>
+    <Voters>
       { voters.map(({ userName, userId }) => (
-        <P key={ userId } light>{ userName }</P>
+        <P key={ userId }>{ userName }</P>
       )) }
-      </ReactTooltip>
-    ) : null }
+    </Voters>
   </StyledItem>
 );
 
