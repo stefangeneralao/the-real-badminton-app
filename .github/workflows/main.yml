@@ -1,4 +1,4 @@
-name: CI
+name: CD
 on:
   push:
     branches: [ master ]
@@ -16,4 +16,4 @@ jobs:
         node-version: 12
     - run: yarn --cwd app
     - run: yarn --cwd app build 
-        
+    - run: docker build --tag badminton_app ./app
