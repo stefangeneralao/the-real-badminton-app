@@ -17,8 +17,7 @@ jobs:
     - name: Bundle
       run: |
         yarn --cwd app
-        yarn --cwd app build 
-        docker build --tag badminton_app ./app
+        yarn --cwd app build
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
@@ -26,3 +25,4 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: "latest"
+        dockerfile: ./app/Dockerfile
