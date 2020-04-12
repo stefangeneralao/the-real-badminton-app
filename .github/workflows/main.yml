@@ -15,6 +15,14 @@ jobs:
       with:
         node-version: 12
     - name: Bundle
-      - run: yarn --cwd app
-      - run: yarn --cwd app build 
-      - run: docker build --tag badminton_app ./app
+      run: |
+        yarn --cwd app
+        yarn --cwd app build
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: stefangeneralao/badminton
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest"
+        workdir: app
