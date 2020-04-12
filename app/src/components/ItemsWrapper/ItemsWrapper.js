@@ -3,13 +3,10 @@ import { compose } from 'recompose';
 import { consumeUser } from '#root/contexts/userContext';
 import { consumeItems } from '#root/contexts/itemsContext';
 import Item from '#root/components/Item/Item';
-import styled from 'styled-components';
+import P from '#root/components/ItemsWrapper/P';
+import StyledItemsWrapper from '#root/components/ItemsWrapper/StyledItemsWrapper';
 
-const StyledItemsWrapper = styled.div``;
 
-const P = styled.p`
-  text-align: center;
-`;
 
 const ItemsWrapper = ({ items, toggleChecked, isFetching, isFetchingFailed, userToken }) => {
   if (isFetching) {
