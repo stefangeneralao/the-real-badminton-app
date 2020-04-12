@@ -14,6 +14,7 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 12
-    - run: yarn --cwd app
-    - run: yarn --cwd app build 
-    - run: docker build --tag badminton_app ./app
+    - name: Bundle
+      - run: yarn --cwd app
+      - run: yarn --cwd app build 
+      - run: docker build --tag badminton_app ./app
