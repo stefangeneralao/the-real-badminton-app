@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Input from '#root/components/UserNameField/Input';
+import Input from '#root/components/UsernameField/Input';
 import { compose } from 'recompose';
 import { consumeUser } from '#root/contexts/userContext';
 import { consumeItems } from '../../contexts/itemsContext';

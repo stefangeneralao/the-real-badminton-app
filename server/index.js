@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Router } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { MongoClient } from 'mongodb';
@@ -13,17 +13,13 @@ if (!process.env.DB_URL) {
 
 const dbUrl = process.env.DB_URL;
 
-const app = express();
+const router = Router();
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (_, res) => {
+router.get('/', (_, res) => {
   res.sendStatus(200);
 });
 
-app.get('/items', async (req, res) => {
+router.get('/items', async (req, res) => {
   const { userToken } = req.query;
   
   try {
@@ -67,7 +63,7 @@ app.get('/items', async (req, res) => {
   }
 });
 
-app.post('/item', async (req, res) => {
+router.post('/item', async (req, res) => {
   const { value, _id, userToken } = req.body;
 
   try {
@@ -89,7 +85,7 @@ app.post('/item', async (req, res) => {
   }
 });
 
-app.post('/vote', async (req, res) => {
+router.post('/vote', async (req, res) => {
   const { itemId, userToken } = req.body;
   try {
     const client = await MongoClient.connect(dbUrl, {
@@ -110,7 +106,7 @@ app.post('/vote', async (req, res) => {
   }
 });
 
-app.delete('/vote', async (req, res) => {
+router.delete('/vote', async (req, res) => {
   const { itemId, userToken } = req.body;
   try {
     const client = await MongoClient.connect(dbUrl, {
@@ -135,7 +131,7 @@ app.delete('/vote', async (req, res) => {
   }
 });
 
-app.post('/username', async (req, res) => {
+router.post('/username', async (req, res) => {
   const { userName, userToken } = req.body;
   try {
     const client = await MongoClient.connect(dbUrl, {
@@ -157,7 +153,7 @@ app.post('/username', async (req, res) => {
   }
 });
 
-app.get('/username', async (req, res) => {
+router.get('/username', async (req, res) => {
   const { userToken } = req.query;
   try {
     const client = await MongoClient.connect(dbUrl, {
@@ -173,6 +169,12 @@ app.get('/username', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/badminton_api', router);
 
 const port = process.env.API_PORT || 3001;
 

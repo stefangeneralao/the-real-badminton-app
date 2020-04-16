@@ -1,10 +1,6 @@
 import axios from 'axios';
 
-const apiBaseUrl = process.env.API_BASE_URL;
-const apiPort = process.env.API_PORT;
-const apiUrl = apiBaseUrl && apiPort ?
-  `${ apiBaseUrl }:${ apiPort }` :
-  'http://localhost:3001';
+const apiUrl = process.env.API_BASE_URL || 'http://localhost:3001';
 
 export const getItems = async userToken => {
   const { data } = await axios(`${ apiUrl }/items`, {
