@@ -16,8 +16,8 @@
     "uuid": "^7.0.3"
   },
   "scripts": {
-    "start": "parcel --public-url /badminton public/index.html",
-    "build": "parcel build --public-url /badminton public/index.html",
+    "start": "parcel --public-url /badminton --no-cache public/index.html",
+    "build": "parcel build --public-url /badminton --no-cache public/index.html",
     "docker-build": "docker build -t stefangeneralao/badminton_app .",
     "docker-run": "docker run -p 3011:3011 --detach --name badminton_app stefangeneralao/badminton_app"
   },
