@@ -15,7 +15,7 @@
   "scripts": {
     "start": "nodemon -r esm",
     "build": "parcel build --target node --bundle-node-modules index.js",
-    "docker-build": "docker build -t badminton_api .",
-    "docker-run": "docker run -p 3012:3012 --detach --env-file ../.env --name badminton_api badminton_api"
+    "docker-build": "docker build -t stefangeneralao/badminton_api .",
+    "docker-run": "docker run -p 3012:3012 --detach --env-file ../.env --name badminton_api stefangeneralao/badminton_api"
   }
 }
