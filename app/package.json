@@ -18,8 +18,8 @@
   "scripts": {
     "start": "parcel --public-url /badminton public/index.html",
     "build": "parcel build --public-url /badminton public/index.html",
-    "docker-build": "docker build -t badminton_app .",
-    "docker-run": "docker run -p 3011:3011 --detach --name badminton_app badminton_app"
+    "docker-build": "docker build -t stefangeneralao/badminton_app .",
+    "docker-run": "docker run -p 3011:3011 --detach --name badminton_app stefangeneralao/badminton_app"
   },
   "eslintConfig": {
     "extends": "react-app"
