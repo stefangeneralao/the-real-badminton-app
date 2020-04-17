@@ -31,6 +31,10 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
 
   const onChangeHandler = e => {
     const { value } = inputEl.current;
+    
+    //Är det ok att köra det blocket varje gång på change?
+    setUserName(value);
+    refreshItems();
 
     if (value) {
       setIsSubmitted(false);
