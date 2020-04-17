@@ -30,7 +30,10 @@ const ItemsProvider = ({ children, userToken, userName }) => {
       if (_id === itemId) {
         const newVoters = [
           ...voters,
-          { userId: userToken, userName: userName || "Anonymous" },
+          {
+            userId: userToken,
+            userName: userName || "Anonymous",
+          },
         ];
         
         return {
