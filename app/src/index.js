@@ -7,6 +7,8 @@ import * as serviceWorker from './serviceWorker';
 
 dotenv.config({ path: '../../.env' });
 
+console.log('Test 1');
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
