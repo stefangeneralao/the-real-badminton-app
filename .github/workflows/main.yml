@@ -18,7 +18,7 @@ jobs:
     - name: Install dependencies
       run: yarn --cwd app
     - name: Build app
-      run: yarn --cwd app build
+      run: API_BASE_URL=${{ secrets.API_BASE_URL }} yarn --cwd app build
     - name: Build Docker image
       run: yarn --cwd app docker-build
     - name: Publish to Registry
