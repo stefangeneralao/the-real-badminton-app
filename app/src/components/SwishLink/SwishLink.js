@@ -6,7 +6,7 @@ const swishUrl = "swish://payment?data=%7B%22version%22%3A1%2C%22payee%22%3A%7B%
 const SwishLink = () => (
   <StyledSwishLink href={ swishUrl }>
     <img src="https://www.swish.nu/favicon-32x32.png" />
-    <p>Swisha Omar!</p>
+    <p>Swisha Omar nu!</p>
   </StyledSwishLink>
 );
 
