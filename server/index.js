@@ -178,8 +178,6 @@ app.use('/badminton_api', router);
 
 const port = process.env.API_PORT || 3012;
 
-process.env.API_PORT = port;
-
 app.listen(port, () => {
   console.log(`Listening on port ${ port }.`);
 });
