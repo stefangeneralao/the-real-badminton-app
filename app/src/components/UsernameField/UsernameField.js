@@ -31,6 +31,10 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
 
   const onChangeHandler = e => {
     const { value } = inputEl.current;
+    
+    //Fråga stefan om det är ok att köra det blocket varje gång på change
+    refreshItems();
+    setUserName(value);
 
     if (value) {
       setIsSubmitted(false);
