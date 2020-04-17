@@ -4,8 +4,7 @@ import ItemsWrapper from '#root/components/ItemsWrapper/ItemsWrapper';
 import AddNewItem from '#root/components/AddNewItem/AddNewItem';
 import UsernameField from '#root/components/UsernameField/UsernameField';
 import Divider from '#root/components/Divider/Divider';
-
-
+import SwishLink from '#root/components/SwishLink/SwishLink';
 
 const Main = () => (
   <StyledMain>
@@ -13,6 +12,7 @@ const Main = () => (
     <Divider />
     <ItemsWrapper />
     <AddNewItem />
+    <SwishLink />
   </StyledMain>
 );
 
