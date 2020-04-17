@@ -24,4 +24,4 @@ jobs:
         yarn --cwd app build
         yarn --cwd app docker-build
     - name: Publish to Registry
-      run: docker push badminton_app
+      run: docker push stefangeneralao/badminton_app
