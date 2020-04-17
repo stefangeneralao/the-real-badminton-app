@@ -4,7 +4,7 @@ on:
     branches: [ prod ]
 
 jobs:
-  build-app:
+  prepare:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
@@ -15,6 +15,8 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+  build-app:
     - name: Install dependencies
       run: yarn --cwd app
     - name: Build app
@@ -25,16 +27,6 @@ jobs:
       run: docker push stefangeneralao/badminton_app
 
   build-api:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: 12
-    - uses: azure/docker-login@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Install dependencies
       run: yarn --cwd server
     - name: Build server
