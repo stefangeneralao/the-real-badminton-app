@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const apiUrl = process.env.API_BASE_URL || 'http://localhost:3012/badminton_api';
+const apiUrl = process.env.NODE_ENV === 'production' ?
+  'https://stefangeneralao.com/badminton_api' :
+  'http://localhost:3012/badminton_api';
 
 export const getItems = async userToken => {
   const { data } = await axios(`${ apiUrl }/items`, {
