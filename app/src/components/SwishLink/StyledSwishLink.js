@@ -18,7 +18,7 @@ const StyledSwishLink = styled.a`
 
     img {
       position: absolute;
-      top: 3px;
+      top: -3px;
       left: -35px;
     }
   }

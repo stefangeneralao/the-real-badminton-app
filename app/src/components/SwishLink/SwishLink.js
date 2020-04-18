@@ -8,8 +8,6 @@ const SwishLink = () => (
     <div>
       <img src="https://www.swish.nu/favicon-32x32.png" />
       <p>Glöm inte att Swisha Omar!</p>
-      <br/>
-      <p>Klicka här för att Swisha 30 kr</p>
     </div>
   </StyledSwishLink>
 );
