@@ -171,7 +171,15 @@ router.get('/username', async (req, res) => {
 });
 
 const app = express();
-app.use(cors());
+if (process.env.NODE_ENV == 'production') {
+  app.use(cors({
+    origin: 'https://www.stefangeneralao.com',
+  }));
+} else {
+  app.use(cors({
+    origin: 'http://localhost:3011',
+  }));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/badminton_api', router);
