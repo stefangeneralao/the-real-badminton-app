@@ -176,9 +176,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/badminton_api', router);
 
-const port = process.env.API_PORT || 3001;
-
-process.env.API_PORT = port;
+const port = process.env.API_PORT || 3012;
 
 app.listen(port, () => {
   console.log(`Listening on port ${ port }.`);

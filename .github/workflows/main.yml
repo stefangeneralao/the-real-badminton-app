@@ -1,28 +1,45 @@
 name: CD
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [ prod ]
 
 jobs:
-  build:
+  build-app:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@master
       with:
         node-version: 12
-    - name: Bundle
-      run: |
-        yarn --cwd app
-        yarn --cwd app build
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@master
+    - uses: azure/docker-login@v1
       with:
-        name: stefangeneralao/badminton
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: "latest"
-        workdir: app
+    - name: Install dependencies
+      run: yarn --cwd app
+    - name: Build app
+      run: API_BASE_URL=${{ secrets.API_BASE_URL }} yarn --cwd app build
+    - name: Build Docker image
+      run: yarn --cwd app docker-build
+    - name: Publish to Registry
+      run: docker push stefangeneralao/badminton_app
+
+  build-api:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: 12
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Install dependencies
+      run: yarn --cwd server
+    - name: Build server
+      run: yarn --cwd server build
+    - name: Build Docker image
+      run: yarn --cwd server docker-build
+    - name: Publish to Registry
+      run: docker push stefangeneralao/badminton_api
