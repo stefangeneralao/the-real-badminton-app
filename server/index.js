@@ -171,13 +171,13 @@ router.get('/username', async (req, res) => {
 });
 
 const app = express();
-if (process.env.NODE_ENV == 'production') {
+if (process.env.NODE_ENV == 'development') {
   app.use(cors({
-    origin: 'https://www.stefangeneralao.com',
+    origin: 'http://localhost:3011',
   }));
 } else {
   app.use(cors({
-    origin: 'http://localhost:3011',
+    origin: 'https://www.stefangeneralao.com',
   }));
 }
 app.use(bodyParser.json());
