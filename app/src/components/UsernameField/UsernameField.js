@@ -51,7 +51,7 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
     <form onSubmit={ onSubmitHandler }>
       <Input
         ref={ inputEl }
-        placeholder="Ditt namn här,tack"
+        placeholder="Ditt namn här"
         isSubmitted={ isSubmitted }
         onFocus={ onFocusHandler }
         onKeyDown={ onKeyDownHandler }
