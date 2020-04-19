@@ -32,24 +32,31 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
   const onChangeHandler = e => {
     const { value } = inputEl.current;
     
-    //Är det ok att köra det blocket varje gång på change?
-    setUserName(value);
-    refreshItems();
+    
+    
 
     if (value) {
       setIsSubmitted(false);
     }
   };
 
+  const onBlurHandler = e => {
+    const { value } = inputEl.current; 
+    setUserName(value);
+    refreshItems();
+  
+  }
+
   return (
     <form onSubmit={ onSubmitHandler }>
       <Input
         ref={ inputEl }
-        placeholder="Your name here please"
+        placeholder="Ditt namn här,tack"
         isSubmitted={ isSubmitted }
         onFocus={ onFocusHandler }
         onKeyDown={ onKeyDownHandler }
         onChange={ onChangeHandler }
+        onBlur={ onBlurHandler }
         defaultValue={ userName }
       />
     </form>
