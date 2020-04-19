@@ -3,9 +3,6 @@ import StyledItem from '#root/components/Item/StyledItem';
 import P from '#root/components/Item/P';
 import Voters from '#root/components/Item/Voters';
 
-
-
-
 const Item = ({ value, isChecked, voters, toggleChecked }) => (
   <StyledItem onClick={ toggleChecked } isChecked={ isChecked } >
     <P>{ value }</P>
