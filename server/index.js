@@ -94,7 +94,7 @@ router.post('/vote', async (req, res) => {
     });
     const collection = client.db().collection('items');
     const item = await collection.findOne({ _id: itemId });
-    const voters = [ ...item.voters, userToken ];
+    const voters = Array.from(new Set([ ...item.voters, userToken ]));
     collection.updateOne(
       { _id: itemId },
       { $set: { voters } },
