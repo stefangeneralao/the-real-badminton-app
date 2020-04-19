@@ -14,8 +14,9 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
     const { value } = inputEl.current;
     if (value) {
       setIsSubmitted(true);
-      refreshItems();
-      setUserName(value);
+      setUserName(value, () => {
+        refreshItems();
+      });
     }
   };
 
@@ -31,20 +32,14 @@ const UserNameField = ({ setUserName, userName, refreshItems }) => {
 
   const onChangeHandler = e => {
     const { value } = inputEl.current;
-    
-    
-    
 
     if (value) {
       setIsSubmitted(false);
     }
   };
 
-  const onBlurHandler = e => {
-    const { value } = inputEl.current; 
-    setUserName(value);
-    refreshItems();
-  
+  const onBlurHandler = () => {
+    onSubmitHandler();
   }
 
   return (

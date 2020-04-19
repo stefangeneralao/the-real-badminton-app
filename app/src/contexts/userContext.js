@@ -21,11 +21,19 @@ const UserProvider = ({ children }) => {
       postUserName(userName, userToken.current);
     }
   }, [ userName ]);
+
+  const setUserNameHandler = async (value, cb) => {
+    setUserName(value);
+    if (userName && userToken.current) {
+      await postUserName(userName, userToken.current);
+      cb();
+    }
+  };
   
   return (
     <UserContext.Provider value={ {
       userToken: userToken.current,
-      setUserName,
+      setUserName: setUserNameHandler,
       userName,
     } }>
       { children }
