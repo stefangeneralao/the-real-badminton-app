@@ -7,7 +7,7 @@ const SwishLink = () => (
   <StyledSwishLink href={ swishUrl }>
     <div>
       <img src="https://www.swish.nu/favicon-32x32.png" />
-      <p>Glöm inte att Swisha Omar!</p>
+      <p>Glöm inte att Swisha!</p>
     </div>
   </StyledSwishLink>
 );
