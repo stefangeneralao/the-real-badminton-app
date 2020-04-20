@@ -177,7 +177,10 @@ if (process.env.NODE_ENV == 'development') {
   }));
 } else {
   app.use(cors({
-    origin: 'https://www.stefangeneralao.com',
+    origin: [
+      'https://www.stefangeneralao.com',
+      'https://www.biadminton.com',
+    ],
   }));
 }
 app.use(bodyParser.json());
