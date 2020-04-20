@@ -180,6 +180,7 @@ if (process.env.NODE_ENV == 'development') {
     origin: [
       'https://www.stefangeneralao.com',
       'https://www.biadminton.com',
+      'https://biadminton.com'
     ],
   }));
 }
