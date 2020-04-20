@@ -28,7 +28,7 @@ const AddNewItem = ({ addItem }) => {
       onKeyDown={ onKeyDownHandler }
       onChange={ onChangeHandler }
       value={ textfieldValue }
-      placeholder="Add New"
+      placeholder="Lägg till en ny"
     />
   );
 };
